@@ -119,6 +119,36 @@ in
       # Go
       gopls
 
+      # Javascript & Typescript
+      deno
+      biome
+      typescript-language-server
+
+      # Java
+      jdt-language-server
+
+      # C#
+      omnisharp-roslyn
+      csharp-ls
+
+      # PHP
+      php
+      intelephense
+      #phpactor
+
+      # Rust
+      rust-analyzer
+
+      # Kotlin
+      kotlin-language-server
+
+      # Ruby
+      rubyPackages_3_4.solargraph
+      rubyPackages_3_4.standard
+      rubyPackages_3_4.syntax_tree
+      rubyPackages_3_4.ruby-lsp
+      ruby_3_4
+
       # Tambahan NvChad
       nodejs_23
       lua-language-server

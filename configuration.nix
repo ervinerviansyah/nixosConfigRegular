@@ -173,6 +173,7 @@
      hconfig = "nvim ~/.config/home-manager/home.nix";
      hbuild = "home-manager build && home-manager switch";
      graph = "git log --all --decorate --oneline --graph";
+     tp = "trash-put";
    };
    };
 

@@ -48,6 +48,7 @@ in
       vlc
       handbrake
       synfigstudio
+      #natron
 
       # Essential Sistem
       htop
@@ -58,6 +59,24 @@ in
       wget
       ntfs3g
       p7zip-rar
+      #kdePackages.dolphin
+
+      # Hyprland Essential
+      nautilus
+      networkmanagerapplet
+      rose-pine-hyprcursor
+      pavucontrol
+      copyq
+      hyprpaper
+      hyprwall
+      jq
+      grim
+      slurp
+      wl-clipboard
+      dunst
+      libnotify
+      rofi-wayland
+      hyprshot
 
       # Personal Use
       bitwarden-desktop
@@ -110,6 +129,9 @@ in
       vscode-langservers-extracted
       ltex-ls
       tailwindcss-language-server
+
+      # CSS
+      stylelint-lsp
 
       # C & C++
       ccls
@@ -263,6 +285,15 @@ in
             '';
           }
 
+          # CSS Colorizer
+          {
+            plugin = nvim-colorizer-lua;
+            type = "lua";
+            config = ''
+              require("colorizer").setup()
+            '';
+          }
+
 
         # Settingan LSP start
 	  {
@@ -394,10 +425,10 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 	    plugin = vim-airline-themes;
 	    config = "let g:airline_themes='wombat'";
 	  }
-	  vim-airline-clock
+	  #vim-airline-clock
 	  #vim-commentary
-	  vim-fugitive
-	  vim-gitgutter
+	  #vim-fugitive
+	  #vim-gitgutter
 
 	  {
             plugin = vim-indent-guides;
@@ -421,5 +452,29 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
           set scrolloff=5
         '';
     };
-  
+
+    # Configuration of Hyprland [Start]
+    # Enable Hyprland
+    #programs.hyprland = {
+    #  enable = true;
+    #  xwayland.enable = true;
+    #};
+
+    # Environment Session
+    #environment.sessionVariables = {
+      # Electron Apps in Wayland
+    #  NIXOS_OZONE_WL = "1";
+    #};
+
+    # Hardware
+    #hardware = {
+      # OpenGL
+    #  opengl.enable = true;
+    #};
+    
+
+
+
+
+
 }

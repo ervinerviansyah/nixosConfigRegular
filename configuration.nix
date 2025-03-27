@@ -18,14 +18,7 @@
     options = [ "rw" "auto" "users" "exec" "uid=1000" "gid=100" "umask=0022" ];
   };
 
-  # Opsi tambahan untuk systemd.mount
-  #systemd.mounts."/mnt/universal-database" = {
-  #  enable = true;
-  #  description = "Mount Universal Database (NTFS)";
-  #  wantedBy = [ "multi-user.target" ];
-  #};
-
-  # Hostname
+   # Hostname
   networking.hostName = "nixos"; 
 
   # Enable networking
@@ -81,13 +74,13 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   # Define a user account.
@@ -99,6 +92,9 @@
     ];
    shell = pkgs.fish;
   };
+
+  # Kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable Cachix
   nix.settings.trusted-users = [ "root" "ervin" ];
@@ -115,8 +111,28 @@
 
 # System Packages
   environment.systemPackages = with pkgs; [
-  
+  #environment.systemPackages = [
+  # Waybar
+  (pkgs.waybar.overrideAttrs (oldAttrs: {
+  mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+  })
+  )
+
+  # Notification
+  #dunst
+  #libnotify
+
+  # Wallpaper
+  #swww
+
+  # Launcher
+  #rofi-wayland
+
   ];
+
+  # XDG
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
 # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -142,7 +158,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 50;
+    memoryPercent = 100;
   };
 
   # Waydroid
@@ -150,14 +166,6 @@
 
   # Vnstat
   services.vnstat.enable = true;
-
-# Hardware
-  hardware.graphics = {
-   enable = true;
-   extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-    ];
-  };
 
   # Configuration Fish
   programs.fish = {
@@ -174,6 +182,9 @@
      hbuild = "home-manager build && home-manager switch";
      graph = "git log --all --decorate --oneline --graph";
      tp = "trash-put";
+     hypr = "nvim ~/.config/hypr/hyprland.conf";
+     sdown = "sudo shutdown -h now";
+     rdown = "sudo shutdown -r now";
    };
    };
 
@@ -197,5 +208,24 @@ virtualisation.libvirtd = {
   };
 };
 
+# Hyprland [ Start ]
+# Start
+programs.hyprland = {
+enable = true;
+xwayland.enable = true;
+};
+
+# Session
+environment.sessionVariables = {
+NIXOS_OZONE_WL = "1";
+};
+
+# Hardware
+  hardware.graphics = {
+   enable = true;
+   extraPackages = with pkgs; [
+#    rocmPackages.clr.icd
+    ];
+  };
 
 }
